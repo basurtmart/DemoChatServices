@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Client_Chat.Views.ChatPage"
+             Title="{Binding Title}" Appearing="ChatPage_OnAppearing">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Text="{Binding WriteMessage.Name, Mode=TwoWay}" Placeholder="Nombre:" VerticalOptions="Start" Keyboard="Text"/>
+            <ScrollView VerticalOptions="FillAndExpand">
+                <ListView ItemsSource="{Binding Messages, Mode=TwoWay}" HorizontalOptions="FillAndExpand" 
+                          HasUnevenRows="True" IsPullToRefreshEnabled="False" SeparatorColor="Blue" 
+                          HeightRequest="300" Margin="10,5,5,10" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium"/>
+                                    <Label Grid.Row="1" Text="{Binding Message}" FontSize="Small"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Entry Text="{Binding WriteMessage.Message, Mode=TwoWay}" Placeholder="Mensaje:" HorizontalOptions="FillAndExpand" Keyboard="Chat"/>
+                <Button Text="Send" Command="{Binding SendMessageCommand, Mode=TwoWay}" HorizontalOptions="End"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
